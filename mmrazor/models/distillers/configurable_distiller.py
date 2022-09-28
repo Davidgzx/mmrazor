@@ -110,7 +110,6 @@ class ConfigurableDistiller(BaseDistiller):
         self.teacher_recorders = RecorderManager(teacher_recorders)
 
         self.deliveries = DistillDeliveryManager(distill_deliveries)
-
         self.distill_losses = self.build_distill_losses(distill_losses)
 
         self.connectors = self.build_connectors(connectors)
@@ -226,7 +225,6 @@ class ConfigurableDistiller(BaseDistiller):
             raise TypeError(
                 'loss_forward_mappings should be a dict instance, but got'
                 f'{type(loss_forward_mappings)}')
-
         for loss_name, forward_mappings in loss_forward_mappings.items():
             assert loss_name in losses, \
                 f'"{loss_name}" is not in distill losses. The keys of ' \
