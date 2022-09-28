@@ -53,12 +53,11 @@ class ReviewKDDistiller(ConfigurableDistiller):
             if isinstance(connector_obj, ABFConnector):
                 if connector_obj.residual is not None:
                     record_data, residual = connector_obj(
-                        record_data, self.residual_buffer[
-                            self.connectors[connector].residual])
+                        record_data,
+                        self.residual_buffer[connector_obj.residual])
                 else:
                     record_data, residual = connector_obj(record_data)
-                if connector in self.residual_buffer.keys():
-                    self.residual_buffer[connector] = residual
+                self.residual_buffer[connector] = residual
             else:
                 record_data = self.connectors[connector](record_data)
         if connector_idx is not None:

@@ -36,16 +36,16 @@ model = dict(
     distiller=dict(
         type='ReviewKDDistiller',
         student_recorders=dict(
-            bb_s4=dict(type='ModuleOutputs', source='backbone.layer4.1.conv2'),
-            bb_s3=dict(type='ModuleOutputs', source='backbone.layer3.1.conv2'),
-            bb_s2=dict(type='ModuleOutputs', source='backbone.layer2.1.conv2'),
-            bb_s1=dict(type='ModuleOutputs', source='backbone.layer1.1.conv2'),
+            bb_s4=dict(type='ModuleOutputs', source='backbone.layer4.1'),
+            bb_s3=dict(type='ModuleOutputs', source='backbone.layer3.1'),
+            bb_s2=dict(type='ModuleOutputs', source='backbone.layer2.1'),
+            bb_s1=dict(type='ModuleOutputs', source='backbone.layer1.1'),
         ),
         teacher_recorders=dict(
-            bb_s4=dict(type='ModuleOutputs', source='backbone.layer4.2.conv3'),
-            bb_s3=dict(type='ModuleOutputs', source='backbone.layer3.5.conv3'),
-            bb_s2=dict(type='ModuleOutputs', source='backbone.layer2.3.conv3'),
-            bb_s1=dict(type='ModuleOutputs', source='backbone.layer1.2.conv3'),
+            bb_s4=dict(type='ModuleOutputs', source='backbone.layer4.2'),
+            bb_s3=dict(type='ModuleOutputs', source='backbone.layer3.5'),
+            bb_s2=dict(type='ModuleOutputs', source='backbone.layer2.3'),
+            bb_s1=dict(type='ModuleOutputs', source='backbone.layer1.2'),
         ),
         distill_losses=dict(
             loss_s4=dict(type='HCLLoss', loss_weight=1.0),
