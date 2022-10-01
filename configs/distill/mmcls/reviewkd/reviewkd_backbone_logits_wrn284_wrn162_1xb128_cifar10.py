@@ -3,7 +3,7 @@ _base_ = [
     'mmcls::_base_/schedules/cifar10_bs128.py',
     'mmcls::_base_/default_runtime.py'
 ]
-train_dataloader = dict(batch_size=128)
+train_dataloader = dict(batch_size=128, num_workers=6)
 model = dict(
     _scope_='mmrazor',
     type='SingleTeacherDistill',
@@ -52,7 +52,6 @@ model = dict(
         )),
     teacher_ckpt=  # noqa: E251
     'https://download.openmmlab.com/mmrazor/v1/wide_resnet/wrn28_4_b16x8_cifar10_20220831_173536-d6f8725c.pth',  # noqa: E501
-    calculate_student_loss=False,
     distiller=dict(
         type='ReviewKDDistiller',
         student_recorders=dict(

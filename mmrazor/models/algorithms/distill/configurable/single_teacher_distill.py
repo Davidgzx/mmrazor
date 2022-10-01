@@ -126,7 +126,6 @@ class SingleTeacherDistill(BaseAlgorithm):
         # The required data already exists in the recorders.
         distill_losses = self.distiller.compute_distill_losses()
         losses.update(add_prefix(distill_losses, 'distill'))
-
         return losses
 
     def train(self, mode: bool = True) -> None:

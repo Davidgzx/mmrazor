@@ -3,7 +3,7 @@ _base_ = [
     'mmcls::_base_/schedules/cifar10_bs128.py',
     'mmcls::_base_/default_runtime.py'
 ]
-train_dataloader = dict(batch_size=128)
+train_dataloader = dict(batch_size=128, num_workers=6)
 teacher_ckpt = 'https://download.openmmlab.com/mmclassification/v0/resnet/resnet50_b16x8_cifar100_20210528-67b58a1b.pth'  # noqa: E501
 model = dict(
     _scope_='mmrazor',
@@ -32,7 +32,6 @@ model = dict(
     teacher=dict(
         cfg_path='mmcls::resnet/resnet50_8xb16_cifar100.py', pretrained=True),
     teacher_ckpt=teacher_ckpt,
-    calculate_student_loss=False,
     distiller=dict(
         type='ReviewKDDistiller',
         student_recorders=dict(
