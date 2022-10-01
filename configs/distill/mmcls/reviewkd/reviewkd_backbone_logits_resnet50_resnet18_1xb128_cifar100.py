@@ -11,10 +11,10 @@ model = dict(
     data_preprocessor=dict(
         type='ImgDataPreprocessor',
         # RGB format normalization parameters
-        mean=[123.675, 116.28, 103.53],
-        std=[58.395, 57.12, 57.375],
+        mean=[129.304, 124.070, 112.434],
+        std=[68.170, 65.392, 70.418],
         # convert image from BGR to RGB
-        bgr_to_rgb=True),
+        bgr_to_rgb=False),
     architecture=dict(
         type='mmcls.ImageClassifier',
         backbone=dict(
