@@ -3,7 +3,7 @@ _base_ = [
     'mmcls::_base_/schedules/cifar10_bs128.py',
     'mmcls::_base_/default_runtime.py'
 ]
-train_dataloader = dict(batch_size=128, num_workers=6)
+train_dataloader = dict(batch_size=128, num_workers=10, pin_memory=True)
 model = dict(
     _scope_='mmrazor',
     type='SingleTeacherDistill',
