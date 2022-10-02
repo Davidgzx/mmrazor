@@ -3,7 +3,11 @@ _base_ = [
     'mmcls::_base_/schedules/cifar10_bs128.py',
     'mmcls::_base_/default_runtime.py'
 ]
-train_dataloader = dict(batch_size=128, num_workers=6)
+optimizer = dict(type='SGD', lr=0.1, momentum=0.9, weight_decay=0.0005)
+lr_config = dict(policy='step', step=[60, 120, 160], gamma=0.2)
+train_dataloader = dict(batch_size=128, num_workers=12, pin_memory=True)
+val_dataloader = dict(batch_size=128, num_workers=12, pin_memory=True)
+default_hooks = dict(checkpoint=dict(type='CheckpointHook', interval=1,max_keep_ckpts=2))
 teacher_ckpt = 'https://download.openmmlab.com/mmclassification/v0/resnet/resnet50_b16x8_cifar100_20210528-67b58a1b.pth'  # noqa: E501
 model = dict(
     _scope_='mmrazor',
@@ -47,10 +51,11 @@ model = dict(
             bb_s1=dict(type='ModuleOutputs', source='backbone.layer1.2'),
         ),
         distill_losses=dict(
-            loss_s4=dict(type='HCLLoss', loss_weight=1.0),
-            loss_s3=dict(type='HCLLoss', loss_weight=0.5),
-            loss_s2=dict(type='HCLLoss', loss_weight=0.25),
-            loss_s1=dict(type='HCLLoss', loss_weight=0.125)),
+            loss_s4=dict(type='HCLLoss', loss_weight=2),
+            loss_s3=dict(type='HCLLoss', loss_weight=2),
+            loss_s2=dict(type='HCLLoss', loss_weight=2),
+            loss_s1=dict(type='HCLLoss', loss_weight=2),
+            ),
         connectors=dict(
             loss_s4_sfeat=dict(
                 type='ABFConnector',
@@ -111,3 +116,5 @@ model = dict(
 find_unused_parameters = True
 
 val_cfg = dict(_delete_=True, type='mmrazor.SingleTeacherDistillValLoop')
+resume = True
+resume_from = 'work_dirs/reviewkd_backbone_logits_resnet50_resnet18_1xb128_cifar100/last_checkpoint'
